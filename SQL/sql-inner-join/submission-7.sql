@@ -1,24 +1,32 @@
-CREATE TABLE users (
-    user_id INTEGER PRIMARY KEY,
-    name TEXT NOT NULL
+CREATE TABLE students (
+    id INT PRIMARY KEY,
+    name TEXT
 );
 
-CREATE TABLE orders (
-    order_id INTEGER PRIMARY KEY,
-    user_id INTEGER REFERENCES users(user_id),
-    total_price DECIMAL(10, 2) NOT NULL
+CREATE TABLE course_registrations (
+    id INT PRIMARY KEY,
+    student_id INT,
+    course_name TEXT
 );
 
-INSERT INTO users (user_id, name) VALUES
-(1, 'John'),
-(2, 'Jane');
+INSERT INTO students (id, name) VALUES
+(1, 'Adam Smith'),
+(2, 'Thomas Jefferson'),
+(3, 'John Adams'),
+(4, 'James Madison');
 
-INSERT INTO orders (order_id, user_id, total_price) VALUES
-(1, 1, 100.00),
-(2, 2, 200.00);
+INSERT INTO course_registrations (id, student_id, course_name) VALUES
+(1, 1, 'Math'),
+(2, 1, 'Science'),
+(3, 2, 'Math'),
+(4, 2, 'History'),
+(5, 3, 'Science'),
+(6, 3, 'Math'),
+(7, 4, 'History'),
+(8, 4, 'Math');
 -- Do not modify above this line. --
 
-
-SELECT users.user_id, name, order_id, total_price
-FROM users
-JOIN orders ON users.user_id = orders.user_id;
+SELECT name, course_name
+FROM students
+INNER JOIN course_registrations ON students.id = course_registrations.student_id
+ORDER BY name ASC;
